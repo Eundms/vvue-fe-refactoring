@@ -124,7 +124,7 @@ export default function AuthPage() {
   const debouncedFunction = debounce(authStatus, 0);
 
   return (
-    <div className={cls('relative w-screen h-screen bg-navy-500')}>
+    <div className={cls('relative w-full h-screen bg-navy-500')}>
       <div className={cls('h-screen justify-center content-center')}>
         <Image className={cls('w-52 pt-32 mx-auto')} src={Logo} alt='Logo' />
         {session && session?.data?.user?.name ? (
@@ -138,7 +138,7 @@ export default function AuthPage() {
             </div>
           </div>
         ) : (
-          <div className={cls('w-screen px-4 mb-32 absolute bottom-0')}>
+          <div className={cls('w-full px-4 mb-32 absolute bottom-0')}>
             <GoogleLoginButton />
             <KakaoLoginButton />
           </div>

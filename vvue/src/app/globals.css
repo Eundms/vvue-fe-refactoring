@@ -26,35 +26,62 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
+body {
+  display: flex;
+  justify-content: center;
+  overflow-y: hidden;
+  background-color: #b7d5ff;
+}
 
-.ion-sm{
+.fixed-width {
+  width: 500px;
+  position: relative;
+  height: 100dvh;
+  overflow: auto;
+  background-color: rgb(251, 251, 251);
+  @media (max-width: 500px) {
+    /* 화면 너비가 500px 이하가 되면 요소 너비를 100%로 고정*/
+    width: 100%;
+  }
+}
+
+fixed-width::-webkit-scrollbar {
+  display: none;
+}
+
+.fixed-width {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.ion-sm {
   font-size: 1.25rem;
 }
 
-.ion-lg{
+.ion-lg {
   font-size: 2.5rem;
 }
 
-.ion-2x{
+.ion-2x {
   font-size: 2em;
 }
 
-.ion-3x{
+.ion-3x {
   font-size: 3em;
 }
 
-.ion-4x{
+.ion-4x {
   font-size: 4em;
 }
 
-.ion-5x{
+.ion-5x {
   font-size: 5em;
 }
 
-.ion-color-white{
-  color:white;
+.ion-color-white {
+  color: white;
 }
 
-.ion-color-gray800{
-  color:'#424242';
+.ion-color-gray800 {
+  color: '#424242';
 }

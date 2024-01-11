@@ -23,10 +23,10 @@ const MarryCodePage = () => {
   useEffect(() => {
     if (userStatusData.data) {
       const userStatus = userStatusData.data.data;
-      if (userStatus.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
+      if (userStatus?.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
         setStatus('complete');
       } else if (
-        !userStatus.spouseInfoAdded &&
+        !userStatus?.spouseInfoAdded &&
         userStatus.spouseConnected &&
         userStatus.authenticated
       ) {
@@ -114,9 +114,9 @@ const MarryCodePage = () => {
   const notify = () => toast('부부 연결이 완료되었습니다. 부부정보 입력하기 페이지로 이동합니다.');
 
   return (
-    <div className={cls('w-screen h-screen flex justify-center items-center')}>
-      <div className={cls('mx-auto w-full h-2/3')}>
-        <Image className={cls('w-52 mx-auto')} src={Logo} alt='logo' />
+    <div className={cls('w-full h-full flex justify-center items-center -mt-28')}>
+      <div className={cls('w-full h-fit mx-auto')}>
+        <Image className={cls('w-48 mx-auto')} src={Logo} alt='logo' />
         <div className={cls('w-full px-4 pt-4')}>
           <CodeIconInput inputValue={code} inputValueSet={codeSet} inputType='MINE' />
           <CodeIconInput onInputChange={inputCodeSet} />

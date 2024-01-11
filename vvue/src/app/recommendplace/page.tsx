@@ -4,7 +4,7 @@ import { cls } from 'utils/cls';
 
 const RecommendPlace = () => {
   return (
-    <div className={cls('w-screen h-screen ')}>
+    <div className={cls('w-full h-screen ')}>
       <RecommendPlaceOrga />
     </div>
   );

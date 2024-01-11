@@ -36,7 +36,7 @@ const Header = () => {
         >
           <div
             className={cls(
-              'fixed top-0 w-full bg-white z-50 text-center py-4 border-b-2 border-gray-40 self-center'
+              'w-full absolute bg-white z-50 text-center py-4 border-b-2 border-gray-40 self-center'
             )}
           >
             <FontSelector fontInfo='jua-regular-xl'>

@@ -14,7 +14,7 @@ export type LABEL_TYPE = 'default' | '연결하기' | '시작하기' | '수정�
 export const BottomButton = ({ onClick, label, ...etc }: IBottomButtonProps) => {
   return (
     <div
-      className={cls('fixed w-screen px-4 z-10', label === '저장하기' ? 'bottom-4' : ' bottom-8')}
+      className={cls('absolute w-full px-4 z-10', label === '저장하기' ? 'bottom-4' : ' bottom-8')}
     >
       <button
         onClick={onClick}

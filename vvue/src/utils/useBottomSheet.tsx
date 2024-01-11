@@ -13,7 +13,7 @@ export const useBottomSheet = () => {
   const component = (
     <div
       className={cls(
-        'fixed w-screen h-screen bg-black bg-opacity-80 left-0 top-0 z-30 flex justify-center items-center',
+        'absolute w-screen h-screen bg-black bg-opacity-80 left-0 top-0 z-30 flex justify-center items-center',
         Target ? '' : 'hidden'
       )}
     >

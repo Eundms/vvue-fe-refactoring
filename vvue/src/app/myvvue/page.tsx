@@ -47,7 +47,7 @@ const MyVVUE = () => {
       >
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <div className={cls('overflow-y-scroll')}>
+      <div className={cls('absolute top-0 w-full overflow-y-scroll')}>
         <MemoryAlbum />
       </div>
       {/* {activeTab === 1 ? (

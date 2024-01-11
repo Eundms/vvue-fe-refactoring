@@ -102,7 +102,7 @@ export default function Calendar() {
             })}
         </div>
       </CalendarScheduleList>
-      <div className='fixed bottom-20 right-2'>
+      <div className='absolute bottom-20 right-2'>
         <Link href='/d-day/create'>
           <AddButton onClick={goToCreate} size={45} />
         </Link>

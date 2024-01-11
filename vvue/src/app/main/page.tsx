@@ -5,7 +5,7 @@ import { cls } from 'utils/cls';
 
 const Main = () => {
   return (
-    <div className={cls('absolute w-screen h-screen left-0 top-0')}>
+    <div className={cls('absolute w-full h-screen left-0 top-0')}>
       <MarriedUserInfo />
     </div>
   );

@@ -8,15 +8,15 @@ import Link from 'next/link';
 
 const DDay = () => {
   const goToCreate = () => {
-    console.log('Create new plan')
-  }
+    console.log('Create new plan');
+  };
 
   return (
     <div>
       <div className='overflow-auto mb-24'>
         <DDayScheduleList />
       </div>
-      <div className='fixed bottom-20 right-2'>
+      <div className='absolute bottom-20 right-2'>
         <Link href='/d-day/create'>
           <AddButton onClick={goToCreate} size={45} />
         </Link>

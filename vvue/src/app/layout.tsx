@@ -60,24 +60,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JotaiProvider>
           <AuthProvider>
             <QueryWrapper>
-              <Header />
-              {children}
-              <AuthScript />
-              <ToastContainer
-                position='bottom-center'
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-                transition={Slide}
-                style={{ marginBottom: 16 }}
-              />
-              <NavBar />
+              <div className='fixed-width'>
+                <Header />
+                {children}
+                <AuthScript />
+                <ToastContainer
+                  position='bottom-center'
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme='light'
+                  transition={Slide}
+                  style={{ marginBottom: 16 }}
+                />
+                <NavBar />
+              </div>
             </QueryWrapper>
           </AuthProvider>
         </JotaiProvider>
