@@ -18,13 +18,13 @@ const NavBar = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-white z-10 w-full bottom-0">
       {(pathname === '/main' ||
         pathname === '/d-day' ||
         pathname === '/calendar' ||
         pathname === '/recommendplace' ||
         pathname === '/myvvue') && (
-        <div className={cls('absolute bottom-0 w-full bg-navy-400 py-2 z-[99999999]')}>
+        <div className={cls('bg-navy-400 py-2 z-[99999999]')}>
           <div className={cls('justify-content items-center grid grid-cols-5 col-auto')}>
             {menus.map((menu) => (
               <div key={menu.index}>
@@ -32,9 +32,9 @@ const NavBar = () => {
               </div>
             ))}
           </div>
-        </div>
+          </div>
       )}
-    </>
+    </div>
   );
 };
 

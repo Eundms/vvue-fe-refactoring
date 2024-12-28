@@ -32,8 +32,7 @@ const DDayScheduleList = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+      <div className='vvue-scroll h-full'>
         <div>
           {scheduleList?.map((fix: ScheduleProps, idx: number) => {
             if (fix.dateType !== 'NORMAL') {
@@ -85,7 +84,6 @@ const DDayScheduleList = () => {
           })}
         </div>
       </div>
-    </div>
   );
 };
 

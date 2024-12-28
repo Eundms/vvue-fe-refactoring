@@ -7,7 +7,6 @@ import { menus } from 'constants/nav';
 import { cls } from 'utils/cls';
 import { RedirectButton } from '@components/atoms/iconButtons/RedirectButton';
 import { NotificationButton } from '@components/atoms/iconButtons/NotificationButton';
-import { FavoritesButton } from '@components/atoms/iconButtons/FavoritesButton';
 import { useAtomValue } from 'jotai';
 import { headerMemoryAtom } from 'stores/headerStore';
 
@@ -19,7 +18,7 @@ const Header = () => {
   pathname = '/' + pathname.split('/')[1]; // 첫 번째 / 다음의 부분을 얻습니다.
 
   return (
-    <>
+    <div className="w-full bg-white z-10">
       {pathname === '/' || pathname === '/auth' ? (
         <></>
       ) : (
@@ -30,13 +29,13 @@ const Header = () => {
               pathname === '/myvvue' ||
               pathname === '/user' ||
               pathname === '/notification'
-              ? 'h-14'
+              ? ''
               : ''
           )}
         >
           <div
             className={cls(
-              'w-full absolute bg-white z-50 text-center py-4 border-b-2 border-gray-40 self-center'
+              'w-full bg-white z-50 text-center py-4 border-b-2 border-gray-40 self-center'
             )}
           >
             <FontSelector fontInfo='jua-regular-xl'>
@@ -90,7 +89,7 @@ const Header = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

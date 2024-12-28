@@ -124,7 +124,7 @@ export default function AuthPage() {
   const debouncedFunction = debounce(authStatus, 0);
 
   return (
-    <div className={cls('relative w-full h-screen bg-navy-500')}>
+    <div className={cls('relative w-full bg-navy-500')}>
       <div className={cls('h-screen justify-center content-center')}>
         <Image className={cls('w-52 pt-32 mx-auto')} src={Logo} alt='Logo' />
         {session && session?.data?.user?.name ? (

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import LogoGray from '../../../assets/LogoGray.png';
 import { getAllMemoryApi } from 'apis/memoryApi';
 import FontSelector from '@components/atoms/fontSelector/FontSelector';
+import Loading from '@components/atoms/loading/Loading';
 
 interface pageParamsProps {
   nextCursor: number;
@@ -38,15 +39,9 @@ const MemoryAlbum = () => {
   };
 
   return (
-    <div className={cls('mb-24')}>
+    <div className={cls('vvue-scroll mb-24')}>
       {isLoading ? (
-        <div className={cls('flex justify-center')}>
-          <div
-            className={cls(
-              'mt-4 border-gray-300 h-8 w-8 animate-spin rounded-full border-4 border-t-navy-600'
-            )}
-          />
-        </div>
+        <Loading/>
       ) : data?.pages?.some((page) => page?.allMemories?.length > 0) ? (
         <div className={cls('grid grid-cols-3 ')}>
           {data?.pages?.map((page) =>

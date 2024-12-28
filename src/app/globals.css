@@ -34,6 +34,8 @@ body {
 }
 
 .fixed-width {
+  display: flex;
+  flex-direction: column;
   width: 500px;
   position: relative;
   height: 100dvh;
@@ -43,15 +45,22 @@ body {
     /* 화면 너비가 500px 이하가 되면 요소 너비를 100%로 고정*/
     width: 100%;
   }
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
 }
 
 fixed-width::-webkit-scrollbar {
   display: none;
 }
 
-.fixed-width {
+.vvue-scroll {
+  overflow-y: auto;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
+}
+
+vvue-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .ion-sm {

@@ -6,7 +6,7 @@ import { debounce } from 'utils/debounce';
 
 // Axios의 'create' 메서드를 사용하여 Axios 인스턴스 생성
 const axios = Axios.create({
-  baseURL: `/backend/v1/api`,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/back/api`,
   // validateStatus: (status) => status < 500,
   withCredentials: true,
 });

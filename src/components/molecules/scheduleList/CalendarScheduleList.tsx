@@ -28,7 +28,7 @@ const CalendarScheduleList = (props: CalendarScheduleListProps) => {
   const divHeight = windowHeight - 459;
 
   return (
-    <div className='overflow-auto' style={{ height: `${divHeight}px` }}>
+    <div className='vvue-scroll' style={{ height: `${divHeight}px` }}>
       <div>{props.children}</div>
     </div>
   );

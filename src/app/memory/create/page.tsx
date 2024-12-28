@@ -157,13 +157,13 @@ export default function CreateMemoryPage() {
     },
   ];
   return (
-    <>
+    <div className='vvue-scroll h-full'>
       <form onSubmit={saveHandler} id='createMemory'>
         {component}
         <div className=' w-100 flex flex-col justify-center items-stretch gap-8 p-4 pb-16'>
           <div className='w-full'>
             <div className='mb-4'>
-              <FontSelector fontInfo='jua-regular-24px'>장소</FontSelector>
+              <FontSelector fontInfo='jua-regular-24px'>오늘의 장소</FontSelector>
             </div>
 
             <div className='w-full flex flex-col justify-center items-center gap-2'>
@@ -232,6 +232,6 @@ export default function CreateMemoryPage() {
         </div>
       </form>
       <BottomButton form='createMemory' type='submit' onClick={() => {}} label={'저장하기'} />
-    </>
+    </div>
   );
 }

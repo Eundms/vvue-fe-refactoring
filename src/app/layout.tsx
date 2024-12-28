@@ -62,7 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <QueryWrapper>
               <div className='fixed-width'>
                 <Header />
-                {children}
+                <div className="flex-grow overflow-hidden">
+                  {children}
+                </div>
                 <AuthScript />
                 <ToastContainer
                   position='bottom-center'

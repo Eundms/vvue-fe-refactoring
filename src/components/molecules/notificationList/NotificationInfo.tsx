@@ -8,6 +8,7 @@ import Link from 'next/link';
 import FontSelector from '@components/atoms/fontSelector/FontSelector';
 import { getAllNotificationApi } from 'apis/notificationApi';
 import NotificationItem from '@components/atoms/item/NotificationItem';
+import Loading from '@components/atoms/loading/Loading';
 
 interface pageParamsProps {
   nextCursor: number;
@@ -61,13 +62,7 @@ const NotificationInfo = () => {
     <div className={cls('h-full bg-gray-200')}>
       <div className={cls('mb-24 p-2')}>
         {isLoading ? (
-          <div className={cls('flex justify-center')}>
-            <div
-              className={cls(
-                'mt-4 border-gray-300 h-8 w-8 animate-spin rounded-full border-4 border-t-navy-600'
-              )}
-            />
-          </div>
+          <Loading/>
         ) : data?.pages?.some((page) => page?.vvueNotificationResDtoList?.length > 0) ? (
           <div>
             {data?.pages?.map((page) =>

@@ -39,7 +39,7 @@ const MyVVUE = () => {
   };
 
   return (
-    <div style={{ height: 'calc(100vh - 80px)' }}>
+    <>
       <ProfileInfo />
       <div
         className={cls(isTabBarFixed ? 'w-full fixed top-14 bg-white' : '', 'z-10')}
@@ -47,7 +47,7 @@ const MyVVUE = () => {
       >
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <div className={cls('absolute top-0 w-full overflow-y-scroll')}>
+      <div className={cls('flex-1 h-full')}>
         <MemoryAlbum />
       </div>
       {/* {activeTab === 1 ? (
@@ -59,7 +59,7 @@ const MyVVUE = () => {
           <KakaoMap />
         </div>
       )} */}
-    </div>
+    </>
   );
 };
 

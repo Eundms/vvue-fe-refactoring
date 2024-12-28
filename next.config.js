@@ -29,7 +29,7 @@ const nextConfig = withPWA({
       {
         protocol: 'https',
         // hostname: 'vvue-bucket.s3.ap-northeast-2.amazonaws.com',
-        hostname: 'vvue-s3.s3.ap-northeast-2.amazonaws.com',
+        hostname: 'vvue-s3.s3.us-east-1.amazonaws.com',
         port: '',
         pathname: '/image/**',
       },
@@ -59,13 +59,34 @@ const nextConfig = withPWA({
       //   source: '/backend/v1/api/:path*',
       //   destination: 'https://vvue.site/v1/api/:path*',
       // },
+      // {
+      //   source: '/backend/v1/api/:path*',
+      //   destination: `${process.env.NEXT_PUBLIC_API_URL}/back/api/:path*`,
+      // }
+    ];
+  },
+  async headers() {
+    return [
       {
-        source: '/backend/v1/api/:path*',
-        destination: 'http://vvue.site:8080/back/api/:path*',
-      },
-      {
-        source: '/pictures/:path*',
-        destination: 'https://vvue.site/pictures/:path*',
+        source: '/back/api/:path*', // CORS 적용할 API 경로
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://www.vvue.site', // 허용할 출처
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS', // 허용할 HTTP 메서드
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Origin, Content-Type, X-Auth-Token, Authorization', // 허용할 헤더
+          },
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true', // 쿠키 전달 허용
+          },
+        ],
       },
     ];
   },

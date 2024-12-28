@@ -40,14 +40,13 @@ export default function Calendar() {
   };
 
   return (
-    <div>
+    <>
       <MainCalendar
         bottomType='NO'
         value={value}
         handleDateChange={handleDateChange}
       ></MainCalendar>
       <CalendarScheduleList>
-        <div>
           {nowScheduleList &&
             nowScheduleList.map((fix: ScheduleTotalProps, idx: number) => {
               if (
@@ -73,8 +72,6 @@ export default function Calendar() {
               }
               return null;
             })}
-        </div>
-        <div>
           {nowScheduleList &&
             nowScheduleList.map((plan: ScheduleTotalProps, idx: number) => {
               if (
@@ -100,14 +97,12 @@ export default function Calendar() {
               }
               return null;
             })}
-        </div>
       </CalendarScheduleList>
       <div className='absolute bottom-20 right-2'>
         <Link href='/d-day/create'>
           <AddButton onClick={goToCreate} size={45} />
         </Link>
       </div>
-      <NavBar />
-    </div>
+    </>
   );
 }

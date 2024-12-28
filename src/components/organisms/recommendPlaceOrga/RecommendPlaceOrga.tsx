@@ -9,6 +9,7 @@ import InfiniteScroll from 'hooks/InfiniteScroll';
 import { IoRemove } from 'react-icons/io5';
 import RecommendPlaceItem from '@components/atoms/item/RecommendPlaceItem';
 import FontSelector from '@components/atoms/fontSelector/FontSelector';
+import Loading from '@components/atoms/loading/Loading';
 
 interface pageParamsProps {
   cursor: number;
@@ -91,13 +92,7 @@ const RecommendPlaceOrga = () => {
     const modalContent = (
       <div className={cls('overflow-y-auto pb-20')}>
         {isLoading ? (
-          <div className={cls('flex justify-center')}>
-            <div
-              className={cls(
-                'mt-4 border-gray-300 h-8 w-8 animate-spin rounded-full border-4 border-t-navy-600'
-              )}
-            />
-          </div>
+          <Loading/>
         ) : data?.pages?.some((page) => page.recommendPlaceResDtoList?.length > 0) ? (
           <div>
             {data.pages.map((page) =>
