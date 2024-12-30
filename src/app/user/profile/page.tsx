@@ -136,7 +136,8 @@ export default function UserProfilePage() {
   const notify = () => toast('내 정보 입력이 완료되었습니다. 부부 연결하기 페이지로 이동합니다.');
 
   return (
-    <div className=' flex flex-col justify-center items-center gap-2 p-2 my-28'>
+    <div className='vvue-scroll h-full'>
+      <div className=' flex flex-col justify-center items-center gap-2 p-2 my-28'>
       <form className='flex w-full justify-center items-center flex-shrink-0'>
         <label
           className=' border border-navy-50 w-[200px] h-[200px]  rounded-full flex justify-center items-center'
@@ -188,6 +189,7 @@ export default function UserProfilePage() {
         <FontSelector fontInfo='pretendard-thin-base'>
           입력하신 정보는 소중한 배우자에게만 보이며, 서비스 최적화를 위해서 사용됩니다.
         </FontSelector>
+      </div>
       </div>
       <BottomButton onClick={handleSaveInput} label='시작하기' />
       <Modal openModal={openModal}>

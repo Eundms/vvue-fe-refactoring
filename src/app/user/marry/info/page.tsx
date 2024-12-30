@@ -113,8 +113,9 @@ export default function MarrayInfoPage() {
   const notify = () => toast('부부 정보 입력이 완료되었습니다. 메인 페이지로 이동합니다.');
 
   return (
-    <div className=' flex flex-col justify-center items-center gap-2 p-2 my-28'>
-      <form className='flex flex-col w-full justify-center items-center flex-shrink-0'>
+    <div className='vvue-scroll h-full'>
+    <div className='flex flex-col justify-center items-center gap-2 p-2 my-28'>
+      <form className='flex flex-col w-full justify-center items-center flex-shrink-0 bg-white'>
         <div className='w-full p-2'>
           <FontSelector fontInfo='jua-regular-md'>홈 화면</FontSelector>
         </div>
@@ -154,12 +155,13 @@ export default function MarrayInfoPage() {
       <DateItem value={marriedDate} handleDateChange={handleMarriedDateChange}>
         결혼기념일
       </DateItem>
-      <div className=' absolute p-2 text-gray-700 text-center bottom-40 '>
+      <div className='p-2 text-gray-700 text-center bottom-40 '>
         <FontSelector fontInfo='pretendard-thin-base'>
           입력하신 정보는 소중한 배우자에게만 보이며, 서비스 최적화를 위해서 사용됩니다.
         </FontSelector>
       </div>
       <BottomButton onClick={handleSaveInput} label='시작하기' />
-    </div>
+      </div>
+      </div>
   );
 }
