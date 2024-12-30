@@ -61,7 +61,7 @@ const MemoryAlbum = () => {
           )}
         </div>
       ) : (
-        <div className={cls('flex w-full h-full items-center justify-center pt-12')}>
+          <div className={cls('w-full absolute top-1/2 transform -translate-y-1/2 flex justify-center items-center text-center')}>
           <div className={cls('text-center')}>
             <Image src={LogoGray} alt='회색 로고' width={120} />
             <FontSelector fontInfo='jua-regular-xl'>

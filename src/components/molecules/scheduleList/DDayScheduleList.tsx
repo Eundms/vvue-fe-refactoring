@@ -6,6 +6,7 @@ import { ScheduleItem } from '@components/atoms/item/ScheduleItem';
 import { PlanTitleText } from '@components/atoms/text/PlanTitleText';
 import { PlanPlaceText } from '@components/atoms/text/PlanPlaceText';
 import { GetDdayScheduleProps, ScheduleProps, getAllScheduleApi } from 'apis/schedulesApi';
+import Loading from '@components/atoms/loading/Loading';
 // import { getUserInfoApi } from 'apis/userApi';
 
 const DDayScheduleList = () => {
@@ -22,19 +23,29 @@ const DDayScheduleList = () => {
   const idCursor = -1;
   const size = 20;
   const [scheduleList, setScheduleList] = useState<ScheduleProps[]>();
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     const getAllSchedules = async () => {
-      const response = await getAllScheduleApi(idCursor, size);
-      response.data.scheduleResDtoList && setScheduleList(response.data.scheduleResDtoList);
-      console.log('일정 목록^^', response.data.scheduleResDtoList);
+      try { 
+        const response = await getAllScheduleApi(idCursor, size);
+        if (response.data.scheduleResDtoList) {
+          setScheduleList(response.data.scheduleResDtoList);
+        }
+        console.log('일정 목록^^', response.data.scheduleResDtoList);
+      } catch (error) {
+        console.error('일정 목록을 가져오는 중 오류 발생:', error);
+      } finally {
+          setIsLoading(false);
+      }
     };
     getAllSchedules();
   }, []);
 
   return (
-      <div className='vvue-scroll h-full'>
-        <div>
-          {scheduleList?.map((fix: ScheduleProps, idx: number) => {
+    <div className='vvue-scroll h-full'>
+      {isLoading ? <Loading /> : <>
+        {scheduleList?.map((fix: ScheduleProps, idx: number) => {
             if (fix.dateType !== 'NORMAL') {
               const fixDate = moment(fix.curDate, 'YYYY-MM-DD');
               const today = moment().format('YYYY-MM-DD');
@@ -57,8 +68,6 @@ const DDayScheduleList = () => {
             }
             return null;
           })}
-        </div>
-        <div>
           {scheduleList?.map((plan: ScheduleProps, idx: number) => {
             if (plan.dateType === 'NORMAL') {
               const planDate = moment(plan.curDate, 'YYYY-MM-DD');
@@ -82,7 +91,9 @@ const DDayScheduleList = () => {
             }
             return null;
           })}
-        </div>
+        </>
+      }
+          
       </div>
   );
 };

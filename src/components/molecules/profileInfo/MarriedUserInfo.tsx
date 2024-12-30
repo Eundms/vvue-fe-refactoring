@@ -14,6 +14,7 @@ import {
 } from 'stores/marriedUserStore';
 import useSWR from 'swr';
 import Image from 'next/image';
+import Loading from '@components/atoms/loading/Loading';
 
 export const MarriedUserInfo = () => {
   const setMyInfo = useSetAtom(myInfoAtom);
@@ -60,7 +61,7 @@ export const MarriedUserInfo = () => {
   return (
     <div className={cls('w-full h-full justify-center items-center')}>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         <>
           <Image src={setMarriedImg} alt='부부 이미지' layout='fill' objectFit='cover' />

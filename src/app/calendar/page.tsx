@@ -8,14 +8,16 @@ import { PlanTitleText } from '@components/atoms/text/PlanTitleText';
 import { PlanPlaceText } from '@components/atoms/text/PlanPlaceText';
 import Link from 'next/link';
 import AddButton from '@components/atoms/iconButtons/AddButton';
-import NavBar from '@components/molecules/navbar/navBar';
 import { ScheduleTotalProps, getCalendarDailyApi } from 'apis/schedulesApi';
 import CalendarScheduleList from '@components/molecules/scheduleList/CalendarScheduleList';
 import { useSetAtom } from 'jotai';
 import { ScheduleAtom } from 'stores/schedule';
+import Loading from '@components/atoms/loading/Loading';
 
 export default function Calendar() {
   // useState를 사용하기 위해선 'use client' 작성해야 함
+  const [isLoading, setIsLoading] = useState(true);
+  
   const [value, setValue] = useState(new Date());
   const [nowScheduleList, setNowScheduleList] = useState<ScheduleTotalProps[]>([]);
   const selectedDate = moment(value).format('YYYY-MM-DD');
@@ -28,10 +30,17 @@ export default function Calendar() {
 
   useEffect(() => {
     const getCalendarDaily = async () => {
-      const response: any = await getCalendarDailyApi(selectedDate);
-      await console.log('우하하하: ', response);
-      await setNowScheduleList(response);
+      try {
+        const response: any = await getCalendarDailyApi(selectedDate);
+        await console.log('우하하하: ', response);
+        await setNowScheduleList(response);
+      } catch (error) {
+        console.error('데일리 목록 가져오는 중 오류 발생');
+      } finally {
+        setIsLoading(false);
+      }
     };
+    
     getCalendarDaily();
   }, [selectedDate]);
 
@@ -46,7 +55,8 @@ export default function Calendar() {
         value={value}
         handleDateChange={handleDateChange}
       ></MainCalendar>
-      <CalendarScheduleList>
+      {isLoading ? (<Loading />)
+      : <CalendarScheduleList>
           {nowScheduleList &&
             nowScheduleList.map((fix: ScheduleTotalProps, idx: number) => {
               if (
@@ -97,7 +107,7 @@ export default function Calendar() {
               }
               return null;
             })}
-      </CalendarScheduleList>
+      </CalendarScheduleList>}
       <div className='absolute bottom-20 right-2'>
         <Link href='/d-day/create'>
           <AddButton onClick={goToCreate} size={45} />

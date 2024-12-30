@@ -15,6 +15,7 @@ import { LoginStatusType } from 'app/page';
 import useSWR from 'swr';
 import { debounce } from 'utils/debounce';
 import { toast } from 'react-toastify';
+import Loading from '@components/atoms/loading/Loading';
 
 export type SessionType = {
   token: {
@@ -126,23 +127,17 @@ export default function AuthPage() {
   return (
     <div className={cls('relative w-full bg-navy-500')}>
       <div className={cls('h-screen justify-center content-center')}>
-        <Image className={cls('w-52 pt-32 mx-auto')} src={Logo} alt='Logo' />
+        <div className={cls('flex flex-col gap-[10dvh]')}>
+        <Image className={cls('w-52 mx-auto')} src={Logo} alt='Logo' />
         {session && session?.data?.user?.name ? (
-          <div className='w-full bottom-0 mb-32 absolute justify-center items-center text-center'>
-            <div className={cls('flex justify-center')}>
-              <div
-                className={cls(
-                  'mt-4 border-gray-300 h-8 w-8 animate-spin rounded-full border-4 border-t-navy-600'
-                )}
-              />
-            </div>
-          </div>
+            <Loading/>
         ) : (
-          <div className={cls('w-full px-4 mb-32 absolute bottom-0')}>
+          <div className={cls('w-full px-4 relative pt-32')}>
             <GoogleLoginButton />
             <KakaoLoginButton />
           </div>
-        )}
+          )}
+          </div>
       </div>
     </div>
   );
