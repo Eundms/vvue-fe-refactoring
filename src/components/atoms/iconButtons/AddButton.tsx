@@ -11,7 +11,7 @@ export interface AddButtonProps {
 // eslint-disable-next-line react/display-name
 export const AddButton = ({ onClick, color, size, ...etc }: AddButtonProps) => {
   return (
-    <button onClick={onClick} {...etc}>
+    <button onClick={onClick} type="button" {...etc}>
       <IoAddCircleOutline color={color ? color : '#2E86FF'} fontSize={size ? size : '40'} />
     </button>
   );
