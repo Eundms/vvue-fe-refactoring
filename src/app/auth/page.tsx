@@ -6,16 +6,14 @@ import Logo from 'assets/Logo.png';
 import { GoogleLoginButton } from '@components/atoms/button/GoogleLoginButton';
 import { cls } from 'utils/cls';
 import { KakaoLoginButton } from '@components/atoms/button/KakaoLoginButton';
-import { AuthStatusProps, getUserAllStatus } from 'apis/userApi';
 import { useSession } from 'next-auth/react';
 import { ProviderType } from 'next-auth/providers/index';
 import { FCMTokenProps, TokenProps } from 'apis/authApi';
 import axios from 'apis';
 import { LoginStatusType } from 'app/page';
-import useSWR from 'swr';
-import { debounce } from 'utils/debounce';
-import { toast } from 'react-toastify';
 import Loading from '@components/atoms/loading/Loading';
+import { useLandingStageContext } from 'context/LandingStageContext';
+
 
 export type SessionType = {
   token: {
@@ -47,10 +45,12 @@ export type SessionType = {
 
 export default function AuthPage() {
   const router = useRouter();
+  const { stage, error } = useLandingStageContext();
 
-  const [status, setStatus] = useState<LoginStatusType>('init');
-
+  const [page, setPage] = useState<LoginStatusType>('init');
+  const [logined, setLogined] = useState<boolean>(false);
   const session = useSession() as any;
+
 
   const login = async (data: any) => {
     const res = await axios.post<TokenProps>('/auth', data);
@@ -66,11 +66,20 @@ export default function AuthPage() {
         ? localStorage.getItem('fcmToken')
         : undefined;
       await axios.post<FCMTokenProps>('/notify/subscribe', { firebaseToken: fcmToken });
-
+      setLogined(true);
       // router.push('/user/profile');
-      debouncedFunction();
     }
   };
+
+  useEffect(() => {
+    if (stage) {
+      setPage(stage);
+    } else {
+      setPage('init')
+    }
+  }, [logined, stage]); // Only run when stage changes
+  
+
   useEffect(() => {
     if (session && session?.data?.user?.name) {
       const data = {
@@ -84,61 +93,37 @@ export default function AuthPage() {
     }
   }, [session]);
 
-  const authStatus = async () => {
-    const res = await getUserAllStatus();
-
-    if (res.status === 200) {
-      if (res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('complete');
-      } else if (!res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('coded');
-      } else if (!res.data.spouseInfoAdded && !res.data.spouseConnected && res.data.authenticated) {
-        setStatus('authed');
-      } else if (
-        !res.data.spouseInfoAdded &&
-        !res.data.spouseConnected &&
-        !res.data.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
-    } else {
-      setStatus('init');
-    }
-  };
 
   useEffect(() => {
-    if (status === 'complete') {
+    if (page === 'complete') {
       router.replace('/main');
-    } else if (status === 'coded') {
+    } else if (page === 'coded') {
       router.replace('/user/marry/info');
-    } else if (status === 'authed') {
+    } else if (page === 'authed') {
       router.replace('/user/marry/code');
-    } else if (status === 'logged') {
+    } else if (page === 'logged') {
       router.replace('/user/profile');
     }
-    // else if (status === 'init') {
+    // else if (page === 'init') {
     //   router.replace('/auth');
     // }
-  }, [status]);
-  const debouncedFunction = debounce(authStatus, 0);
+  }, [page]);
 
   return (
     <div className={cls('relative w-full bg-navy-500')}>
       <div className={cls('h-screen justify-center content-center')}>
         <div className={cls('flex flex-col gap-[10dvh]')}>
-        <Image className={cls('w-52 mx-auto')} src={Logo} alt='Logo' />
-        {session && session?.data?.user?.name ? (
-            <Loading/>
-        ) : (
-          <div className={cls('w-full px-4 relative pt-32')}>
-            <GoogleLoginButton />
-            <KakaoLoginButton />
-          </div>
+          <Image className={cls('w-52 mx-auto')} src={Logo} alt='Logo' />
+          {session && session?.data?.user?.name ? (
+            <Loading />
+          ) : (
+            <div className={cls('w-full px-4 relative pt-32')}>
+              <GoogleLoginButton />
+              <KakaoLoginButton />
+            </div>
           )}
-          </div>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }

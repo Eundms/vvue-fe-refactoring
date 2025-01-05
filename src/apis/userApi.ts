@@ -25,11 +25,7 @@ export interface ModifyUserProps {
 export interface AuthStatusProps {
   authenticated: boolean;
 }
-export interface AllAuthStatusProps {
-  spouseConnected: boolean;
-  spouseInfoAdded: boolean;
-  authenticated: boolean;
-}
+
 export const getUserInfoApi = async () => {
   const res = await axios.get<UserProps>(`${apiUrl}`);
   return res;
@@ -44,13 +40,6 @@ export const deleteUserApi = async () => {
   const res = await axios.delete(`${apiUrl}`);
   console.log(res.data);
 
-  return res;
-};
-
-export const getUserAllStatus = async () => {
-  const res = await axios.get<AllAuthStatusProps>(`${apiUrl}/all-info-updated`);
-  console.log('결과', res.data);
-  // if (res.status === 200) return res.data;
   return res;
 };
 

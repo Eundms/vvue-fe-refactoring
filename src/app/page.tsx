@@ -4,12 +4,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Logo from '../assets/Logo.png';
 import { cls } from 'utils/cls';
-import { getUserAllStatus } from 'apis/userApi';
 import axios from 'apis';
 import { debounce } from 'utils/debounce';
 
 import { initializeApp } from 'firebase/app';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
+import useLandingStage from 'hooks/useLandingStage';
+import { landingApiUrl } from 'apis/landingApi';
 
 export type SessionType = {
   token: {
@@ -97,6 +98,8 @@ export default function Home() {
     }
   }, []);
 
+  const { stage} = useLandingStage(landingApiUrl);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
@@ -105,26 +108,10 @@ export default function Home() {
   }, []);
 
   const authStatus = async () => {
-    const res = await getUserAllStatus();
-
-    if (res.status === 200) {
-      if (res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('complete');
-      } else if (!res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('coded');
-      } else if (!res.data.spouseInfoAdded && !res.data.spouseConnected && res.data.authenticated) {
-        setStatus('authed');
-      } else if (
-        !res.data.spouseInfoAdded &&
-        !res.data.spouseConnected &&
-        !res.data.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
-    } else {
-      setStatus('init');
+    if (stage) {
+      setStatus(stage)
+    } else { 
+      setStatus('init')
     }
   };
   const debouncedFunction = debounce(authStatus, 1000);

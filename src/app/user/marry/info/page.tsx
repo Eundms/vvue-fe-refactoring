@@ -8,50 +8,28 @@ import FontSelector from '@components/atoms/fontSelector/FontSelector';
 import Image from 'next/image';
 import { IoImages } from 'react-icons/io5';
 import { LoginStatusType } from 'app/page';
-import { getUserAllStatus } from 'apis/userApi';
-import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
 import { getImageId } from 'utils/uploadImage';
 import { modifyMarriedInfoApi } from 'apis/marriedApi';
 import { toast } from 'react-toastify';
+import { LandingStageProvider, useLandingStageContext } from 'context/LandingStageContext';
 
 export type GenderType = 'MALE' | 'FEMALE';
 export default function MarrayInfoPage() {
   const router = useRouter();
 
   const [status, setStatus] = useState<LoginStatusType>('init');
-  const userStatusData = useSWR('userStatus', () => getUserAllStatus(), { refreshInterval: 1000 });
+
+  const { stage, error } = useLandingStageContext();
+  
 
   useEffect(() => {
-    if (userStatusData.data) {
-      const userStatus = userStatusData.data.data;
-      if (userStatus.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
-        setStatus('complete');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('coded');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('authed');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        !userStatus.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
+    if (stage) {
+      setStatus(stage);
     } else {
       setStatus('init');
     }
-  }, [userStatusData]);
+  }, [stage]);
 
   useEffect(() => {
     console.log(status);
@@ -133,7 +111,7 @@ export default function MarrayInfoPage() {
                 // fill
                 width={200}
                 height={200}
-                className=' w-full h-full object-cover -z-50'
+                className=' w-full h-full object-cover z-50'
               />
             ) : (
               <IoImages />

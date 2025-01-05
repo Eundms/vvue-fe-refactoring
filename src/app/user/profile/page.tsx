@@ -8,7 +8,7 @@ import moment from 'moment';
 import FontSelector from '@components/atoms/fontSelector/FontSelector';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { ModifyUserProps, getUserAllStatus, getUserInfoApi, modifyUserInfoApi } from 'apis/userApi';
+import { ModifyUserProps, getUserInfoApi, modifyUserInfoApi } from 'apis/userApi';
 import { IoImage } from 'react-icons/io5';
 import { getImageId } from 'utils/uploadImage';
 import Modal from '@components/atoms/modal/Modal';
@@ -16,40 +16,18 @@ import AgreeDisagreeButton from '@components/atoms/button/AgreeDisagreeButton';
 import { useRouter } from 'next/navigation';
 import { LoginStatusType } from 'app/page';
 import { toast } from 'react-toastify';
+import {  useLandingStageContext } from 'context/LandingStageContext';
 export type GenderType = 'MALE' | 'FEMALE';
 export default function UserProfilePage() {
   const [status, setStatus] = useState<LoginStatusType>('init');
-  const userStatusData = useSWR('userStatus', () => getUserAllStatus());
+  const { stage, error } = useLandingStageContext();
   useEffect(() => {
-    if (userStatusData.data) {
-      const userStatus = userStatusData.data.data;
-      if (userStatus.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
-        setStatus('complete');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('coded');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('authed');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        !userStatus.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
+    if (stage) {
+      setStatus(stage);
     } else {
       setStatus('init');
     }
-  }, []);
+  }, [stage]);
 
   useEffect(() => {
     if (status === 'complete') {
@@ -206,6 +184,6 @@ export default function UserProfilePage() {
           </div>
         </div>
       </Modal>
-    </div>
+      </div>
   );
 }

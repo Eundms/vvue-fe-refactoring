@@ -11,6 +11,8 @@ import JotaiProvider from 'context/JotaiProvider';
 import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthScript from 'context/AuthScript';
+import React from 'react';
+import { LandingStageProvider } from 'context/LandingStageContext';
 export const metadata: Metadata = {
   title: 'vvue',
   description: '보다 나은 우리를 위해',
