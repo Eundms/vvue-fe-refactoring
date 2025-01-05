@@ -62,7 +62,7 @@ const nextConfig = withPWA({
       // {
       //   source: '/backend/v1/api/:path*',
       //   destination: `${process.env.NEXT_PUBLIC_API_URL}/back/api/:path*`,
-      // }
+      // },
     ];
   },
   async headers() {

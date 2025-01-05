@@ -7,10 +7,9 @@ import CodeIconInput from '@components/atoms/input/CodeIconInput';
 import { BottomButton } from '@components/atoms/button/BottomButton';
 import { useRouter } from 'next/navigation';
 import { marriedCodeConnectApi } from 'apis/marriedCodeApi';
-import useSWR from 'swr';
 import { LoginStatusType } from 'app/page';
-import { getUserAllStatus } from 'apis/userApi';
 import { toast } from 'react-toastify';
+import { LandingStageProvider, useLandingStageContext } from 'context/LandingStageContext';
 
 export interface CreateMarriedCodeProps {
   marriedCode: string;
@@ -18,38 +17,15 @@ export interface CreateMarriedCodeProps {
 
 const MarryCodePage = () => {
   const [status, setStatus] = useState<LoginStatusType>('init');
-  const userStatusData = useSWR('userStatus', () => getUserAllStatus(), { refreshInterval: 1000 });
+  const { stage, error } = useLandingStageContext();
 
   useEffect(() => {
-    if (userStatusData.data) {
-      const userStatus = userStatusData.data.data;
-      if (userStatus?.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
-        setStatus('complete');
-      } else if (
-        !userStatus?.spouseInfoAdded &&
-        userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('coded');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('authed');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        !userStatus.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
+    if (stage) {
+      setStatus(stage);
     } else {
       setStatus('init');
     }
-  }, [userStatusData]);
+  }, [stage]);
 
   useEffect(() => {
     if (status === 'complete') {
@@ -124,7 +100,7 @@ const MarryCodePage = () => {
         </div>
       </div>
       <BottomButton label={'연결하기'} onClick={handleConnectedCode} />
-    </div>
+      </div>
   );
 };
 
