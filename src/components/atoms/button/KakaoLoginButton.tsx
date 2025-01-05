@@ -7,11 +7,6 @@ import KakaoLogoImg from '../../../assets/socialLoginIcon/kakaoLogo.png';
 import { cls } from 'utils/cls';
 
 export const KakaoLoginButton = () => {
-  const { data: session } = useSession();
-
-  if (session) {
-    return <button onClick={() => signOut()}>로그아웃</button>;
-  }
 
   return (
     <button

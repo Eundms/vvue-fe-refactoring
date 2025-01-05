@@ -13,15 +13,18 @@ export interface TokenProps {
   accessToken: string;
   refreshToken: string;
   userId: number;
+  stage: string;
 }
 
 export const socialLoginApi = async (props: SocialLoginProps) => {
   const res = await axios.post<TokenProps>(`${apiUrl}`, props);
-  console.log(res.data);
-
+  if (res.status === 200) {
+    axios.defaults.headers.common[`Authorization`] = res.data.accessToken;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('accessToken', res.data.accessToken);
+      localStorage.setItem('refreshToken', res.data.refreshToken);
+    }
+  }
   return res;
 };
 
-export interface FCMTokenProps {
-  firebaseToken: string;
-}

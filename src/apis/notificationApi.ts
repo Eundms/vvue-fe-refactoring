@@ -23,6 +23,11 @@ export interface GetNotificationDataProps {
   scheduleDate: string;
 }
 
+export interface FCMTokenProps {
+  firebaseToken: string;
+}
+
+
 // 알림 목록 조회
 export const getAllNotificationApi = async (query?: query) => {
   const res = await axios.get<GetNotificationProps[]>(apiUrl, {
@@ -31,6 +36,11 @@ export const getAllNotificationApi = async (query?: query) => {
     },
   });
   return res.data;
+};
+
+export const setSubscribe = async (fcmToken: string) => {
+  const res = await axios.post<FCMTokenProps>('/notify/subscribe', { firebaseToken: fcmToken });
+  return res;
 };
 
 // 안 읽은 알림 존재 여부 조회

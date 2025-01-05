@@ -7,68 +7,30 @@ import moment from 'moment';
 import FontSelector from '@components/atoms/fontSelector/FontSelector';
 import Image from 'next/image';
 import { IoImages } from 'react-icons/io5';
-import { LoginStatusType } from 'app/page';
-import { getUserAllStatus } from 'apis/userApi';
-import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
 import { getImageId } from 'utils/uploadImage';
 import { modifyMarriedInfoApi } from 'apis/marriedApi';
 import { toast } from 'react-toastify';
+import { useLandingStageContext } from 'context/LandingStageContext';
+import { loadingActions, LoginStatusType } from 'utils/loginUtils';
 
 export type GenderType = 'MALE' | 'FEMALE';
 export default function MarrayInfoPage() {
   const router = useRouter();
 
-  const [status, setStatus] = useState<LoginStatusType>('init');
-  const userStatusData = useSWR('userStatus', () => getUserAllStatus(), { refreshInterval: 1000 });
+  const [status, setStatus] = useState<LoginStatusType>('coded');
+
+  const { stage, error } = useLandingStageContext();
+  
 
   useEffect(() => {
-    if (userStatusData.data) {
-      const userStatus = userStatusData.data.data;
-      if (userStatus.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
-        setStatus('complete');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('coded');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('authed');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        !userStatus.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
-    } else {
-      setStatus('init');
-    }
-  }, [userStatusData]);
+    if (stage) {
+      setStatus(stage);
+    } 
+  }, [stage]);
 
   useEffect(() => {
-    console.log(status);
-    if (status === 'complete') {
-      router.replace('/main');
-    }
-    // else if (status === 'coded') {
-    //   router.replace('/user/marry/info');
-    // } else if (status === 'authed') {
-    //   router.replace('/user/marry/code');
-    // }
-    // else if (status === 'logged') {
-    //   router.replace('/user/profile');
-    // }
-    // else if (status === 'init') {
-    //   router.replace('/auth');
-    // }
+    loadingActions[status](router);
   }, [status]);
 
   const [homeImage, setHomeImage] = useState<string>('');
@@ -133,7 +95,7 @@ export default function MarrayInfoPage() {
                 // fill
                 width={200}
                 height={200}
-                className=' w-full h-full object-cover -z-50'
+                className=' w-full h-full object-cover z-50'
               />
             ) : (
               <IoImages />

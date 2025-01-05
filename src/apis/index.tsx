@@ -1,6 +1,5 @@
 import Axios from 'axios';
 import { refreshTokenApi } from './refreshApi';
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { debounce } from 'utils/debounce';
 

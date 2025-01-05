@@ -7,12 +7,6 @@ import GoogleLogoImg from '../../../assets/socialLoginIcon/googleLogo.png';
 import { cls } from 'utils/cls';
 
 export const GoogleLoginButton = () => {
-  const { data: session } = useSession();
-
-  if (session) {
-    return <button onClick={() => signOut()}>로그아웃</button>;
-  }
-
   return (
     <button
       onClick={(e) => {

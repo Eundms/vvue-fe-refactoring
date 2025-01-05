@@ -6,16 +6,14 @@ import Logo from 'assets/Logo.png';
 import { GoogleLoginButton } from '@components/atoms/button/GoogleLoginButton';
 import { cls } from 'utils/cls';
 import { KakaoLoginButton } from '@components/atoms/button/KakaoLoginButton';
-import { AuthStatusProps, getUserAllStatus } from 'apis/userApi';
 import { useSession } from 'next-auth/react';
 import { ProviderType } from 'next-auth/providers/index';
-import { FCMTokenProps, TokenProps } from 'apis/authApi';
+import { socialLoginApi} from 'apis/authApi';
 import axios from 'apis';
-import { LoginStatusType } from 'app/page';
-import useSWR from 'swr';
-import { debounce } from 'utils/debounce';
-import { toast } from 'react-toastify';
 import Loading from '@components/atoms/loading/Loading';
+import { loadingActions, LoginStatusType } from 'utils/loginUtils';
+import { setSubscribe } from 'apis/notificationApi';
+
 
 export type SessionType = {
   token: {
@@ -44,101 +42,63 @@ export type SessionType = {
   };
   expires: string;
 };
-
+export type AuthReqType = {
+  email: string;
+  nickname: string;
+  provider: ProviderType;
+  providerId: string;
+} | null;
 export default function AuthPage() {
   const router = useRouter();
 
-  const [status, setStatus] = useState<LoginStatusType>('init');
-
-  const session = useSession() as any;
+  const [loginInfos, setLoginInfos] = useState<AuthReqType>(null);
+  const { data: session, status } = useSession() as any; 
 
   const login = async (data: any) => {
-    const res = await axios.post<TokenProps>('/auth', data);
-    console.log(res.data);
+    const res = await socialLoginApi(data);
     if (res.status === 200) {
-      console.log(res);
-      axios.defaults.headers.common[`Authorization`] = res.data.accessToken;
       if (typeof window !== 'undefined') {
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);
       }
       const fcmToken = localStorage.getItem('fcmToken')
-        ? localStorage.getItem('fcmToken')
-        : undefined;
-      await axios.post<FCMTokenProps>('/notify/subscribe', { firebaseToken: fcmToken });
-
-      // router.push('/user/profile');
-      debouncedFunction();
-    }
-  };
-  useEffect(() => {
-    if (session && session?.data?.user?.name) {
-      const data = {
-        email: session?.data?.user.email as string,
-        nickname: session?.data?.user.name as string,
-        provider: session?.data?.token?.account?.provider.toUpperCase() as ProviderType,
-        providerId: session?.data?.token?.account?.providerAccountId as string,
-      };
-      console.log(data);
-      login(data);
-    }
-  }, [session]);
-
-  const authStatus = async () => {
-    const res = await getUserAllStatus();
-
-    if (res.status === 200) {
-      if (res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('complete');
-      } else if (!res.data.spouseInfoAdded && res.data.spouseConnected && res.data.authenticated) {
-        setStatus('coded');
-      } else if (!res.data.spouseInfoAdded && !res.data.spouseConnected && res.data.authenticated) {
-        setStatus('authed');
-      } else if (
-        !res.data.spouseInfoAdded &&
-        !res.data.spouseConnected &&
-        !res.data.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
+      if (fcmToken) { 
+        const fcmRes = await setSubscribe(fcmToken);
       }
-    } else {
-      setStatus('init');
+      // router.push('/user/profile');
+      loadingActions[res.data.stage as LoginStatusType](router);
     }
   };
 
-  useEffect(() => {
-    if (status === 'complete') {
-      router.replace('/main');
-    } else if (status === 'coded') {
-      router.replace('/user/marry/info');
-    } else if (status === 'authed') {
-      router.replace('/user/marry/code');
-    } else if (status === 'logged') {
-      router.replace('/user/profile');
+   useEffect(() => {
+    if (status === 'authenticated' && session) {
+      const extractedData = {
+        email: session.user?.email || '',
+        nickname: session.user?.name || '',
+        provider: (session.token?.account?.provider?.toUpperCase() || 'OTHER') as ProviderType,
+        providerId: session.token?.account?.providerAccountId || '',
+      };
+      setLoginInfos(extractedData);
+      login(extractedData);
     }
-    // else if (status === 'init') {
-    //   router.replace('/auth');
-    // }
-  }, [status]);
-  const debouncedFunction = debounce(authStatus, 0);
-
+   }, [session, status]);
+  
+  
   return (
     <div className={cls('relative w-full bg-navy-500')}>
       <div className={cls('h-screen justify-center content-center')}>
         <div className={cls('flex flex-col gap-[10dvh]')}>
-        <Image className={cls('w-52 mx-auto')} src={Logo} alt='Logo' />
-        {session && session?.data?.user?.name ? (
-            <Loading/>
-        ) : (
-          <div className={cls('w-full px-4 relative pt-32')}>
-            <GoogleLoginButton />
-            <KakaoLoginButton />
-          </div>
+          <Image className={cls('w-52 mx-auto')} src={Logo} alt='Logo' />
+          {loginInfos !== null ? (
+            <Loading />
+          ) : (
+            <div className={cls('w-full px-4 relative pt-32')}>
+              <GoogleLoginButton />
+              <KakaoLoginButton />
+            </div>
           )}
-          </div>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }

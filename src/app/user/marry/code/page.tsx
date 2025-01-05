@@ -7,65 +7,26 @@ import CodeIconInput from '@components/atoms/input/CodeIconInput';
 import { BottomButton } from '@components/atoms/button/BottomButton';
 import { useRouter } from 'next/navigation';
 import { marriedCodeConnectApi } from 'apis/marriedCodeApi';
-import useSWR from 'swr';
-import { LoginStatusType } from 'app/page';
-import { getUserAllStatus } from 'apis/userApi';
 import { toast } from 'react-toastify';
+import { useLandingStageContext } from 'context/LandingStageContext';
+import { loadingActions, LoginStatusType } from 'utils/loginUtils';
 
 export interface CreateMarriedCodeProps {
   marriedCode: string;
 }
 
 const MarryCodePage = () => {
-  const [status, setStatus] = useState<LoginStatusType>('init');
-  const userStatusData = useSWR('userStatus', () => getUserAllStatus(), { refreshInterval: 1000 });
+  const [status, setStatus] = useState<LoginStatusType>('authed');
+  const { stage, error } = useLandingStageContext();
 
   useEffect(() => {
-    if (userStatusData.data) {
-      const userStatus = userStatusData.data.data;
-      if (userStatus?.spouseInfoAdded && userStatus.spouseConnected && userStatus.authenticated) {
-        setStatus('complete');
-      } else if (
-        !userStatus?.spouseInfoAdded &&
-        userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('coded');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        userStatus.authenticated
-      ) {
-        setStatus('authed');
-      } else if (
-        !userStatus.spouseInfoAdded &&
-        !userStatus.spouseConnected &&
-        !userStatus.authenticated
-      ) {
-        setStatus('logged');
-      } else {
-        setStatus('init');
-      }
-    } else {
-      setStatus('init');
-    }
-  }, [userStatusData]);
+    if (stage) {
+      setStatus(stage);
+    } 
+  }, [stage]);
 
   useEffect(() => {
-    if (status === 'complete') {
-      router.replace('/main');
-    } else if (status === 'coded') {
-      router.replace('/user/marry/info');
-    }
-    // else if (status === 'authed') {
-    //   router.replace('/user/marry/code');
-    // }
-    // else if (status === 'logged') {
-    //   router.replace('/user/profile');
-    // }
-    // else if (status === 'init') {
-    //   router.replace('/auth');
-    // }
+    loadingActions[status as LoginStatusType](router);
   }, [status]);
 
   const [code, codeSet] = useState('');
@@ -124,7 +85,7 @@ const MarryCodePage = () => {
         </div>
       </div>
       <BottomButton label={'연결하기'} onClick={handleConnectedCode} />
-    </div>
+      </div>
   );
 };
 
