@@ -125,7 +125,7 @@ const RecommendPlaceOrga = () => {
     openPopup(modalContent);
   };
   return (
-    <div className={cls('h-full w-full pb-[80px]')}>
+    <div className={cls('h-full w-full pb-[60px]')}>
       <KakaoMap address={addressToPass} setAddress={setAddressToPass} />
       <button
         className={cls(
