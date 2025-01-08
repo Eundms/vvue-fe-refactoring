@@ -93,7 +93,7 @@ const [status, setStatus] = useState<LoginStatusType>('logged');
   const notify = () => toast('내 정보 입력이 완료되었습니다. 부부 연결하기 페이지로 이동합니다.');
 
   return (
-    <div className='vvue-scroll h-full'>
+    <>
       <div className=' flex flex-col justify-center items-center gap-2 p-2 my-28'>
       <form className='flex w-full justify-center items-center flex-shrink-0'>
         <label
@@ -163,6 +163,6 @@ const [status, setStatus] = useState<LoginStatusType>('logged');
           </div>
         </div>
       </Modal>
-      </div>
+      </>
   );
 }

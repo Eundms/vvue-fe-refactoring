@@ -25,7 +25,7 @@ export default function DetailMemoryPage() {
   setHeaderMemory(data?.scheduleInfo.name || '');
 
   return (
-    <>
+    <div className='vvue-scroll h-full'>
       <div className='bg-navy-50 w-full flex flex-col justify-center items-stretch gap-2 p-4 '>
         <div className=' flex flex-col gap-2 mb-4 '>
           <div className='bg-white  rounded-lg p-2'>
@@ -116,6 +116,6 @@ export default function DetailMemoryPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
