@@ -9,15 +9,17 @@ import { getUserInfoApi } from 'apis/userApi';
 import { createScheduleApi, NewScheduleProps } from 'apis/schedulesApi';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'next/navigation';
 
 export default function DDayCreate() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   // 일정명 입력 값
   const [inputValue, setInputValue] = useState<string>('');
   // 날짜 입력 값
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(searchParams.get('date')??new Date());
   const selectedDate = moment(value).format('YYYY-MM-DD');
   // 반복 유무 입력 값
   const [nowRepeat, setNowRepeat] = useState('');

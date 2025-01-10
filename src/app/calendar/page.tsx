@@ -109,7 +109,10 @@ export default function Calendar() {
             })}
       </CalendarScheduleList>}
       <div className='absolute bottom-20 right-2'>
-        <Link href='/d-day/create'>
+        <Link href={{
+          pathname: '/d-day/create',
+          query: { date: selectedDate },
+        }}>
           <AddButton onClick={goToCreate} size={45} />
         </Link>
       </div>
