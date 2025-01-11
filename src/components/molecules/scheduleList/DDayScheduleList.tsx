@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
+import moment from "moment-timezone";
 import { ScheduleItem } from '@components/atoms/item/ScheduleItem';
 import { PlanTitleText } from '@components/atoms/text/PlanTitleText';
 import { PlanPlaceText } from '@components/atoms/text/PlanPlaceText';
@@ -48,7 +48,7 @@ const DDayScheduleList = () => {
         {scheduleList?.map((fix: ScheduleProps, idx: number) => {
             if (fix.dateType !== 'NORMAL') {
               const fixDate = moment(fix.curDate, 'YYYY-MM-DD');
-              const today = moment().format('YYYY-MM-DD');
+              const today = moment().tz("Asia/Seoul").format('YYYY-MM-DD');
               const currentDate = moment(today, 'YYYY-MM-DD');
               const scheduleId = fix.id;
               if (fixDate.isSame(currentDate) || fixDate.isAfter(currentDate)) {
@@ -71,7 +71,7 @@ const DDayScheduleList = () => {
           {scheduleList?.map((plan: ScheduleProps, idx: number) => {
             if (plan.dateType === 'NORMAL') {
               const planDate = moment(plan.curDate, 'YYYY-MM-DD');
-              const today = moment().format('YYYY-MM-DD');
+              const today = moment().tz("Asia/Seoul").format('YYYY-MM-DD');
               const currentDate = moment(today, 'YYYY-MM-DD');
               const scheduleId = plan.id;
               if (planDate.isSame(currentDate) || planDate.isAfter(currentDate)) {

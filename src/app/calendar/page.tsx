@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import moment from "moment-timezone";
 import MainCalendar from '@components/molecules/calendar/MainCalendar';
 import { ScheduleItem } from '@components/atoms/item/ScheduleItem';
 import { PlanTitleText } from '@components/atoms/text/PlanTitleText';
@@ -20,7 +20,7 @@ export default function Calendar() {
   
   const [value, setValue] = useState(new Date());
   const [nowScheduleList, setNowScheduleList] = useState<ScheduleTotalProps[]>([]);
-  const selectedDate = moment(value).format('YYYY-MM-DD');
+  const selectedDate = moment(value).tz("Asia/Seoul").format('YYYY-MM-DD');
   const setScheduleMemory = useSetAtom(ScheduleAtom);
   setScheduleMemory(selectedDate);
 
@@ -89,7 +89,7 @@ export default function Calendar() {
                 plan.scheduleResDto.dateType === 'NORMAL'
               ) {
                 const planDate = moment(plan.scheduleResDto.curDate, 'YYYY-MM-DD');
-                const today = moment().format('YYYY-MM-DD');
+                const today = moment().tz("Asia/Seoul").format('YYYY-MM-DD');
                 const currentDate = moment(today, 'YYYY-MM-DD');
                 const scheduleId = plan.scheduleResDto.id;
                 return (
