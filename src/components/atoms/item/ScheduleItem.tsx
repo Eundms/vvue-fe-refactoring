@@ -25,7 +25,9 @@ interface ScheduleItemProps {
   ddayFix?: ScheduleProps;
   calendarPlan?: ScheduleTotalProps;
   ddayPlan?: ScheduleProps;
-  scheduleId?: number | undefined;
+  scheduleId: number | undefined;
+  scheduleName: string;
+  scheduleDate: string;
   children: React.ReactNode;
 }
 
@@ -37,6 +39,8 @@ export const ScheduleItem = ({
   ddayFix,
   ddayPlan,
   scheduleId,
+  scheduleName,
+  scheduleDate,
   children,
 }: ScheduleItemProps) => {
   const fixTargetDate =
@@ -154,7 +158,7 @@ export const ScheduleItem = ({
                     </button>
                   ) : (
                     <button
-                      onClick={() => router.push(`/memory/create?scheduleId=${scheduleId}`)}
+                      onClick={() => router.push(`/memory/create?scheduleId=${scheduleId}&scheduleName=${scheduleName}&scheduleDate=${scheduleDate}`)}
                       className='inline-block bg-[#5CA0FF] text-[20px] text-white ps-[6px] pb-[6px] pe-[4px] pt-[4px] rounded-[8px] hover:bg-[#006BFF] hover:cursor-pointer'
                     >
                       <IoCreateOutline />

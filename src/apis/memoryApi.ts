@@ -38,6 +38,8 @@ export interface CreateMemoryProps {
   pictureId: number;
   placeMemories: CreatePlaceMemoriesProps[];
   scheduleId: number;
+  scheduleName: string;
+  scheduleDate: string;
 }
 
 export interface CreateMemoryReturnProps {

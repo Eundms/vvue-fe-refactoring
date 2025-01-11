@@ -8,6 +8,7 @@ import LabelInput, { LabelInputPropsType } from '@components/atoms/input/LabelIn
 import { MainWrapper } from '@components/atoms/wrapper/MainWrapper';
 import { CreateMemoryProps, createMemoryApi } from 'apis/memoryApi';
 import { uploadImageApi, uploadMultiImageApi } from 'apis/pictureApi';
+import moment from 'moment';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -46,6 +47,9 @@ export default function CreateMemoryPage() {
 
   const searchParams = useSearchParams();
   const scheduleId = searchParams.get('scheduleId') ? Number(searchParams.get('scheduleId')) : 1;
+  const scheduleName = searchParams.get('scheduleName') ??  '';
+  const scheduleDate = searchParams.get('scheduleDate') ?? moment().format('YYYY-MM-DD');
+
   console.log(scheduleId);
 
   const useFormReturn = useForm({
@@ -94,6 +98,8 @@ export default function CreateMemoryPage() {
       pictureId: d.pictureId,
       placeMemories: [],
       scheduleId: scheduleId,
+      scheduleName: scheduleName,
+      scheduleDate: scheduleDate
     };
     d.placeMemories.map((place) => {
       data.placeMemories.push({
