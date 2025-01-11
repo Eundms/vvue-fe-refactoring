@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import moment from "moment-timezone";
 // D-day 계산하는 함수
 import { calculateDays } from 'utils/calculateDays';
 import { IoDocumentTextOutline, IoRepeat } from 'react-icons/io5';
@@ -51,7 +51,7 @@ export const ScheduleItem = ({
     calendarType === 'CALENDAR'
       ? moment(calendarPlan?.scheduleResDto.curDate, 'YYYY-MM-DD')
       : moment(ddayPlan?.curDate, 'YYYY-MM-DD');
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz("Asia/Seoul").format('YYYY-MM-DD');
   const currentDate = moment(today, 'YYYY-MM-DD');
   const dDayOfFixed = calculateDays(
     fixTargetDate,

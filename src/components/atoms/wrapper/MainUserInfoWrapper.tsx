@@ -4,7 +4,7 @@ import FontSelector from '@components/atoms/fontSelector/FontSelector';
 import { useAtomValue } from 'jotai';
 import { marriedDateAtom, myInfoAtom, spouseInfoAtom } from 'stores/marriedUserStore';
 import { calculateDays } from 'utils/calculateDays';
-import moment from 'moment';
+import moment from "moment-timezone";
 import { cls } from 'utils/cls';
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ const MainUserInfoWrapper = () => {
   const myInfo = useAtomValue(myInfoAtom);
   const spouseInfo = useAtomValue(spouseInfoAtom);
 
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz("Asia/Seoul").format('YYYY-MM-DD');
   const currentDate = moment(today, 'YYYY-MM-DD');
   const dDay = calculateDays(marriedInfo, currentDate);
   const dDayOfYear = isNaN(Math.floor(parseInt(dDay) / 365))
