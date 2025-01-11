@@ -51,6 +51,8 @@ const DDayScheduleList = () => {
               const today = moment().format('YYYY-MM-DD');
               const currentDate = moment(today, 'YYYY-MM-DD');
               const scheduleId = fix.id;
+              const scheduleDate = fix.curDate;
+              const scheduleName = fix.scheduleName;
               if (fixDate.isSame(currentDate) || fixDate.isAfter(currentDate)) {
                 return (
                   <ScheduleItem
@@ -59,6 +61,8 @@ const DDayScheduleList = () => {
                     calendarType='DDAY'
                     ddayFix={fix}
                     scheduleId={scheduleId}
+                    scheduleDate={scheduleDate}
+                    scheduleName={scheduleName}
                   >
                     <PlanTitleText>{fix && fix.scheduleName}</PlanTitleText>
                     <PlanPlaceText>{fixDate.format('YYYY-MM-DD')}</PlanPlaceText>
@@ -74,6 +78,8 @@ const DDayScheduleList = () => {
               const today = moment().format('YYYY-MM-DD');
               const currentDate = moment(today, 'YYYY-MM-DD');
               const scheduleId = plan.id;
+              const scheduleDate = plan.curDate;
+              const scheduleName = plan.scheduleName;
               if (planDate.isSame(currentDate) || planDate.isAfter(currentDate)) {
                 return (
                   <ScheduleItem
@@ -82,6 +88,8 @@ const DDayScheduleList = () => {
                     calendarType='DDAY'
                     ddayPlan={plan}
                     scheduleId={scheduleId}
+                    scheduleDate={scheduleDate}
+                    scheduleName={scheduleName}
                   >
                     <PlanTitleText>{plan && plan.scheduleName}</PlanTitleText>
                     <PlanPlaceText>{planDate.format('YYYY-MM-DD')}</PlanPlaceText>

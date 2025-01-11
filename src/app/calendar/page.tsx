@@ -74,6 +74,8 @@ export default function Calendar() {
                     calendarType='CALENDAR'
                     calendarPlan={fix}
                     scheduleId={scheduleId}
+                    scheduleName={fix.scheduleResDto.scheduleName}
+                    scheduleDate={fix.scheduleResDto.curDate}
                   >
                     <PlanTitleText>{fix && fix.scheduleResDto.scheduleName}</PlanTitleText>
                     <PlanPlaceText>{fixDate.format('YYYY-MM-DD')}</PlanPlaceText>
@@ -99,6 +101,8 @@ export default function Calendar() {
                     calendarType='CALENDAR'
                     calendarPlan={plan}
                     scheduleId={scheduleId}
+                    scheduleName={plan.scheduleResDto.scheduleName}
+                    scheduleDate={plan.scheduleResDto.curDate}
                   >
                     <PlanTitleText>{plan && plan.scheduleResDto.scheduleName}</PlanTitleText>
                     <PlanPlaceText>{planDate.format('YYYY-MM-DD')}</PlanPlaceText>
