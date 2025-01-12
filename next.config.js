@@ -29,7 +29,7 @@ const nextConfig = withPWA({
       {
         protocol: 'https',
         // hostname: 'vvue-bucket.s3.ap-northeast-2.amazonaws.com',
-        hostname: 'vvue-s3.s3.us-east-1.amazonaws.com',
+        hostname: 'cdn.vvue.site',
         port: '',
         pathname: '/image/**',
       },
