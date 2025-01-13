@@ -12,6 +12,8 @@ import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthScript from 'context/AuthScript';
 import React from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export const metadata: Metadata = {
   title: 'vvue',
   description: '보다 나은 우리를 위해',
@@ -22,7 +24,6 @@ declare global {
     Kakao: any;
   }
 }
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const refresh = async (token: string) => {
     const res = await refreshTokenApi(token);
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </QueryWrapper>
           </AuthProvider>
         </JotaiProvider>
+        <SpeedInsights/>
       </body>
     </html>
   );
