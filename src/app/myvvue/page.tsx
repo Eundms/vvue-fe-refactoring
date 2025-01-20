@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ProfileInfo from '@components/organisms/profileInfo/ProfileInfo';
 import { TabBar } from '@components/atoms/tabBar/TabBar';
 import MemoryAlbum from '@components/molecules/memoryAlbum/MemoryAlbum';
-import KakaoMap from '@components/atoms/kakaoMap/KakaoMap';
 import { cls } from 'utils/cls';
+import MemoryPlace from '@components/molecules/memoryPlace/MemoryPlace';
 
 const MyVVUE = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -47,18 +47,16 @@ const MyVVUE = () => {
       >
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <div className={cls('flex-1 h-full')}>
+    
+      {activeTab === 1 ? (
+          <div className={cls('flex-1 h-full')}>
         <MemoryAlbum />
       </div>
-      {/* {activeTab === 1 ? (
-        <div className={cls('overflow-y-scroll')}>
-          <MemoryAlbum />
-        </div>
       ) : (
-        <div className={cls('w-full h-full')}>
-          <KakaoMap />
-        </div>
-      )} */}
+          <div className={cls('flex-1 h-full')}>
+        <MemoryPlace/>
+      </div>
+      )}
     </>
   );
 };
