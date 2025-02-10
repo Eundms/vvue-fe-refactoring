@@ -28,6 +28,7 @@ export const ProfileImageView = (props: ProfileImageViewProps) => {
       )}
       width={50}
       height={50}
+      
     />
   );
 };

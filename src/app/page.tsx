@@ -79,7 +79,7 @@ export default function Home() {
     return (
       <div className="relative w-full bg-navy-500">
         <div className="h-screen flex justify-center items-center">
-          <Image className="w-52 pt-32 mx-auto" src={Logo} alt="Logo" />
+          <Image className="w-52 pt-32 mx-auto" src={Logo} alt="Logo"  />
         </div>
       </div>
     );

@@ -22,6 +22,7 @@ export const ImagePreview = forwardRef<HTMLInputElement, ImageInputProps>((props
       )}
       width={inputStyle === 'place' ? 80 : 300}
       height={inputStyle === 'place' ? 80 : 300}
+      
     />
   );
 });

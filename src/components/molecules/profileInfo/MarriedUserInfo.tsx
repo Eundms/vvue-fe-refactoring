@@ -64,7 +64,7 @@ export const MarriedUserInfo = () => {
         <Loading />
       ) : (
         <>
-          <Image src={setMarriedImg} alt='부부 이미지' layout='fill' objectFit='cover' />
+          <Image src={setMarriedImg} alt='부부 이미지' layout='fill' objectFit='cover'   />
           <MainUserInfoWrapper />
         </>
       )}

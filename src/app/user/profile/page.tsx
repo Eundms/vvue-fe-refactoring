@@ -107,7 +107,8 @@ const [status, setStatus] = useState<LoginStatusType>('logged');
                 alt={'프로필 이미지'}
                 width={200}
                 height={200}
-                className='rounded-full w-full h-full object-cover'
+                  className='rounded-full w-full h-full object-cover'
+                  
               />
             ) : (
               <div

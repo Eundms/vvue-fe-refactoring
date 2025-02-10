@@ -25,6 +25,12 @@ const nextConfig = withPWA({
     appDir: true,
   },
   images: {
+    loader :'default',
+    // loader: 'custom',
+    // loaderFile: './custom-loader.js',
+    domains: ['cdn.vvue.site'], 
+    unoptimized: true, 
+
     remotePatterns: [
       {
         protocol: 'https',

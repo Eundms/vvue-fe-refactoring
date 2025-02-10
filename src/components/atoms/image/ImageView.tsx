@@ -24,6 +24,7 @@ export const ImageView = (props: ImageViewProps) => {
       )}
       width={300}
       height={300}
+      
     />
   );
 };

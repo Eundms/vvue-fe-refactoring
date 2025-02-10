@@ -53,6 +53,7 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
           alt='Notification Image'
           width={50}
           height={50}
+          
         />
       </div>
       <div className={cls('col-span-7 ml-2')}>
