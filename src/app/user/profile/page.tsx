@@ -69,8 +69,8 @@ const [status, setStatus] = useState<LoginStatusType>('logged');
     }
     console.log('Save');
     console.log(profileImageFile);
-    const pictureId = await getImageId(profileImageFile);
-
+    const pictureId = await getImageId(profileImageFile, 'USER_PROFILE');
+    console.log('profile',pictureId)
     console.log(profileImage);
     console.log(nickname);
     console.log(selectedBirthday);

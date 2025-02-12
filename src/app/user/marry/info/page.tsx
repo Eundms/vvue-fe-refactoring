@@ -59,13 +59,12 @@ export default function MarrayInfoPage() {
     console.log('Save');
     console.log(homeImageFile);
     console.log(selectedMarriedDate);
-    const pictureId = homeImageFile ? await getImageId(homeImageFile) : -1;
+    const pictureId = homeImageFile ? await getImageId(homeImageFile, 'MARRIED_RELATED') : -1;
 
     const data = {
       marriedDay: selectedMarriedDate,
       pictureId,
     };
-    console.log(data);
     const res = await modifyMarriedInfoApi(data);
     if (res.status === 200) {
       notify();

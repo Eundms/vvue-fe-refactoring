@@ -7,12 +7,10 @@ import RemoveButton from '@components/atoms/iconButtons/RemoveButton';
 import LabelInput, { LabelInputPropsType } from '@components/atoms/input/LabelInput';
 import { MainWrapper } from '@components/atoms/wrapper/MainWrapper';
 import { CreateMemoryProps, createMemoryApi } from 'apis/memoryApi';
-import { uploadImageApi, uploadMultiImageApi } from 'apis/pictureApi';
 import moment from 'moment';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { getImageId, getImagesId } from 'utils/uploadImage';
 import useBottomSheet from 'utils/useBottomSheet';
 export type PlaceType = {
   address_name: string;

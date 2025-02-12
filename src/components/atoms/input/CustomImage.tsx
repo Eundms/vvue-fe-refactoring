@@ -6,7 +6,7 @@ import RemoveButton from '../iconButtons/RemoveButton';
 import { LABEL_TYPE } from './LabelInput';
 import { UseFormReturn } from 'react-hook-form';
 import { getImageId, getImagesId } from 'utils/uploadImage';
-import { deleteImageApi, deleteMultiImageApi } from 'apis/pictureApi';
+import { deleteImageApi } from 'apis/pictureApi';
 import { PictureProps } from 'apis/memoryApi';
 
 export interface CustomImageProps
@@ -52,12 +52,12 @@ export const CustomImage = React.forwardRef<HTMLInputElement, CustomImageProps>(
     setUploadImages(dataTranster.files);
     let imageId, imageListId;
     if (inputStyle === 'user') {
-      imageId = await getImageId(dataTranster.files);
+      imageId = await getImageId(dataTranster.files, 'MARRIED_RELATED');
       console.log(imageId);
       setValue(`pictureId`, imageId);
       setValue(`picture`, dataTranster.files);
     } else if (inputStyle === 'place') {
-      imageListId = await getImagesId(idx, dataTranster.files);
+      imageListId = await getImagesId(idx, dataTranster.files, 'MARRIED_RELATED');
       console.log(imageListId);
       setValue(`placeMemories.${idx}.pictureIds`, imageListId);
       setValue(`placeMemories.${idx}.pictures`, dataTranster.files);
