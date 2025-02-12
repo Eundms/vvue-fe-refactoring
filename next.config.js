@@ -18,28 +18,14 @@ const nextConfig = withPWA({
     styledComponents: true,
   },
   //output: 'standalone',
-  images: {
-    unoptimized: true,
-  },
+
   experimental: {
     appDir: true,
   },
   images: {
-    loader :'default',
-    // loader: 'custom',
-    // loaderFile: './custom-loader.js',
     domains: ['cdn.vvue.site'], 
-    unoptimized: true, 
-
-    remotePatterns: [
-      {
-        protocol: 'https',
-        // hostname: 'vvue-bucket.s3.ap-northeast-2.amazonaws.com',
-        hostname: 'cdn.vvue.site',
-        port: '',
-        pathname: '/image/**',
-      },
-    ],
+    loader: 'custom',
+    loaderFile : 'custom-loader.js'
   },
   async rewrites() {
     return [
