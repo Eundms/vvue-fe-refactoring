@@ -59,27 +59,27 @@ const nextConfig = withPWA({
   },
   async headers() {
     return [
-      {
-        source: '/back/api/:path*', // CORS 적용할 API 경로
-        headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: 'https://www.vvue.site', // 허용할 출처
-          },
-          {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET, POST, PUT, DELETE, OPTIONS', // 허용할 HTTP 메서드
-          },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value: 'Origin, Content-Type, X-Auth-Token, Authorization', // 허용할 헤더
-          },
-          {
-            key: 'Access-Control-Allow-Credentials',
-            value: 'true', // 쿠키 전달 허용
-          },
-        ],
-      },
+      // {
+      //   source: '/back/api/:path*', // CORS 적용할 API 경로
+      //   headers: [
+      //     {
+      //       key: 'Access-Control-Allow-Origin',
+      //       value: 'https://www.vvue.site', // 허용할 출처
+      //     },
+      //     {
+      //       key: 'Access-Control-Allow-Methods',
+      //       value: 'GET, POST, PUT, DELETE, OPTIONS', // 허용할 HTTP 메서드
+      //     },
+      //     {
+      //       key: 'Access-Control-Allow-Headers',
+      //       value: 'Origin, Content-Type, X-Auth-Token, Authorization', // 허용할 헤더
+      //     },
+      //     {
+      //       key: 'Access-Control-Allow-Credentials',
+      //       value: 'true', // 쿠키 전달 허용
+      //     },
+      //   ],
+      // },
     ];
   },
   env: {
