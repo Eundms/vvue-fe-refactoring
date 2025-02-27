@@ -21,6 +21,7 @@ export const socialLoginApi = async (props: SocialLoginProps) => {
   if (res.status === 200) {
     axios.defaults.headers.common[`Authorization`] = res.data.accessToken;
     if (typeof window !== 'undefined') {
+      localStorage.setItem('userId', ""+res.data.userId);
       localStorage.setItem('accessToken', res.data.accessToken);
       localStorage.setItem('refreshToken', res.data.refreshToken);
     }

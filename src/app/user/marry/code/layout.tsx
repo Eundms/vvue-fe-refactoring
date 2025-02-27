@@ -1,9 +1,9 @@
 // app/dashboard/layout.tsx (대시보드 레이아웃)
-import { LandingStageProvider } from 'context/LandingStageContext';
+import { WebSocketProvider } from 'context/WebSocketContext';
 import { ReactNode } from 'react';
 
 export default function MarryCodeLayout({ children }: { children: ReactNode }) {
   return (
-      <LandingStageProvider>{ children}</LandingStageProvider>
+      <WebSocketProvider>{ children}</WebSocketProvider>
   );
 }

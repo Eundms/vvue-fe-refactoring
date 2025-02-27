@@ -8,8 +8,8 @@ import { BottomButton } from '@components/atoms/button/BottomButton';
 import { useRouter } from 'next/navigation';
 import { marriedCodeConnectApi } from 'apis/marriedCodeApi';
 import { toast } from 'react-toastify';
-import { useLandingStageContext } from 'context/LandingStageContext';
 import { loadingActions, LoginStatusType } from 'utils/loginUtils';
+import { useWebSocket } from 'context/WebSocketContext';
 
 export interface CreateMarriedCodeProps {
   marriedCode: string;
@@ -17,13 +17,27 @@ export interface CreateMarriedCodeProps {
 
 const MarryCodePage = () => {
   const [status, setStatus] = useState<LoginStatusType>('authed');
-  const { stage, error } = useLandingStageContext();
+  const { status: socketStatus, connect, disconnect, updateStatus } = useWebSocket();
 
   useEffect(() => {
-    if (stage) {
-      setStatus(stage);
-    } 
-  }, [stage]);
+    const userId = localStorage.getItem("userId");
+    connect(`/topic/user/${userId}/married-status`);
+    if (updateStatus) { 
+      setStatus(updateStatus);    
+    }
+    return () => {
+      disconnect(); 
+    };
+  }, []);
+
+  useEffect(() => {
+  console.log(updateStatus)
+  if (updateStatus) {
+
+    setStatus(updateStatus);
+  }
+}, [updateStatus]);
+
 
   useEffect(() => {
     loadingActions[status as LoginStatusType](router);
