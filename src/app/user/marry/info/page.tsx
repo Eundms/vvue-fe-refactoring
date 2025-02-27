@@ -19,14 +19,15 @@ export type GenderType = 'MALE' | 'FEMALE';
 export default function MarrayInfoPage() {
   const router = useRouter();
 
-  // WebSocket 상태를 가져옵니다.
-  const { status: socketStatus, connect, disconnect, updateStatus } = useWebSocket();
-
   const [status, setStatus] = useState<LoginStatusType>('coded');
+  const { status: socketStatus, connect, disconnect, updateStatus } = useWebSocket();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     connect(`/topic/user/${userId}/married-status`); // WebSocket 연결 시작
+    if (updateStatus) { 
+      setStatus(updateStatus);    
+    }
    return () => {
       disconnect(); 
     };

@@ -31,9 +31,7 @@ const MarryCodePage = () => {
   }, []);
 
   useEffect(() => {
-  console.log(updateStatus)
   if (updateStatus) {
-
     setStatus(updateStatus);
   }
 }, [updateStatus]);
