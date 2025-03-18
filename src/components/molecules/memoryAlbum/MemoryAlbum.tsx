@@ -39,7 +39,7 @@ const MemoryAlbum = () => {
   };
 
   return (
-    <div className={cls('vvue-scroll mb-24')}>
+    <div className={cls('vvue-scroll h-full')}>
       {isLoading ? (
         <Loading/>
       ) : data?.pages?.some((page) => page?.allMemories?.length > 0) ? (
